@@ -1,32 +1,14 @@
 import { Command, CommanderError } from 'commander';
-import { REQUEST_COUNT, runBenchmark } from '../services/benchmark.service.js';
+import { REQUEST_COUNT } from '../constants/benchmark.constants.js';
+import { runBenchmark } from '../services/benchmark.service.js';
 import type { BenchmarkResult } from '../types/benchmark.types.js';
+import type { CliOutput } from '../types/cli.types.js';
 import {
   formatDuration,
   formatSize,
   formatSpeed,
 } from '../utils/format.utils.js';
-
-type CliOutput = {
-  writeOut: (text: string) => void;
-  writeErr: (text: string) => void;
-};
-
-function parseHttpUrl(value: string): URL {
-  const url = URL.parse(value);
-  if (!url) {
-    throw new Error('Invalid URL. Provide an absolute HTTP or HTTPS URL.');
-  }
-  if (url.protocol !== 'http:' && url.protocol !== 'https:') {
-    throw new Error(
-      `Unsupported protocol (${url.protocol}). Use HTTP or HTTPS.`,
-    );
-  }
-  if (url.username || url.password) {
-    throw new Error('Credentials embedded in the URL are unsupported.');
-  }
-  return url;
-}
+import { parseHttpUrl } from '../utils/url.utils.js';
 
 function formatBenchmark(url: URL, result: BenchmarkResult): string {
   const {

@@ -1,15 +1,13 @@
+import {
+  REQUEST_COUNT,
+  REQUEST_TIMEOUT_MS,
+} from '../constants/benchmark.constants.js';
+import { MILLISECONDS_PER_SECOND } from '../constants/measurement.constants.js';
 import type {
+  BenchmarkDependencies,
   BenchmarkResult,
   RequestMeasurement,
 } from '../types/benchmark.types.js';
-
-export const REQUEST_COUNT = 10;
-const REQUEST_TIMEOUT_MS = 30_000;
-
-type BenchmarkDependencies = {
-  fetch?: typeof fetch;
-  now?: () => number;
-};
 
 function describeTransferError(error: unknown): string {
   if (error instanceof Error) {
@@ -86,7 +84,9 @@ export async function runBenchmark(
   }
 
   const bytesPerSecond =
-    totalDurationMs === 0 ? 0 : totalBytes / (totalDurationMs / 1_000);
+    totalDurationMs === 0
+      ? 0
+      : totalBytes / (totalDurationMs / MILLISECONDS_PER_SECOND);
 
   return {
     measurements,

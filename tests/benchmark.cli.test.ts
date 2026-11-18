@@ -2,13 +2,9 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { runCli } from '../src/cli/benchmark.cli.js';
 import { runBenchmark } from '../src/services/benchmark.service.js';
 
-vi.mock(
-  import('../src/services/benchmark.service.js'),
-  async (importOriginal) => ({
-    ...(await importOriginal()),
-    runBenchmark: vi.fn(),
-  }),
-);
+vi.mock(import('../src/services/benchmark.service.js'), () => ({
+  runBenchmark: vi.fn(),
+}));
 
 const output = {
   writeOut: vi.fn<(text: string) => void>(),

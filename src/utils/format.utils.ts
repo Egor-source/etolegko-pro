@@ -1,11 +1,14 @@
-const BYTES_PER_MEGABYTE = 1_000_000;
+import {
+  BYTES_PER_MEGABYTE,
+  DISPLAY_DECIMAL_PLACES,
+} from '../constants/measurement.constants.js';
 
 function formatMegabytes(bytes: number): string {
-  return (bytes / BYTES_PER_MEGABYTE).toFixed(2);
+  return (bytes / BYTES_PER_MEGABYTE).toFixed(DISPLAY_DECIMAL_PLACES);
 }
 
 export function formatDuration(durationMs: number): string {
-  return `${durationMs.toFixed(2)} ms`;
+  return `${durationMs.toFixed(DISPLAY_DECIMAL_PLACES)} ms`;
 }
 
 export function formatSize(bytes: number): string {

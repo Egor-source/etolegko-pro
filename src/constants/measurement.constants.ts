@@ -1,0 +1,3 @@
+export const MILLISECONDS_PER_SECOND = 1_000;
+export const BYTES_PER_MEGABYTE = 1_000_000;
+export const DISPLAY_DECIMAL_PLACES = 2;
